@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:VisitApp.ViewModels"
+             xmlns:model="clr-namespace:VisitApp.Models"
+             x:Class="VisitApp.Views.MainPage"
+             x:DataType="vm:MainViewModel"
+             Title="Últimas Visitas">
+
+    <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" Orientation="Vertical">
+            <StackLayout 
+                Orientation="Horizontal" 
+                BackgroundColor="White"
+                HorizontalOptions="FillAndExpand">
+                <StackLayout 
+                    Orientation="Horizontal" 
+                    HorizontalOptions="CenterAndExpand">
+                    <Image 
+                        Source="nueva_visita.png" 
+                        HeightRequest="32"
+                        WidthRequest="32" 
+                        BackgroundColor="White" />
+                    <Button Margin="0,0,0,0"
+                            x:Name="AddVisitorButton"
+                            Clicked="AddVisitorButton_Clicked"
+                            BackgroundColor="White"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource TextColor}"
+                            BorderWidth="0"
+                            CornerRadius="0"
+                            FontSize="20"
+                            HeightRequest="60"
+                            Text="NUEVA VISITA" />
+                </StackLayout>
+            </StackLayout>
+            <BoxView   
+                    Color="Silver"  
+                    Margin="0,0,0,15"                   
+                    HeightRequest="3"  
+                    HorizontalOptions="Fill" />
+            <CollectionView
+                    ItemsSource="{Binding Visitors}" 
+                    RemainingItemsThreshold="10" 
+                    EmptyView="No hay visitantes"
+                    Margin="0, 20, 0, 0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate
+                        x:DataType="model:TransactionItem">
+                        <Frame Margin="4" Padding="12">
+                            <Grid ColumnDefinitions="*" 
+                                RowDefinitions="*, *">
+                                <Label Text="{Binding DateAndTime, StringFormat='{0:dd MMM yyyy HH:mm}'}" 
+                                       Grid.Column="0" 
+                                       Grid.Row="0" 
+                                       FontSize="16"
+                                       FontAttributes="Bold" />
+                                <Label Text="{Binding Visitor.FullName}" 
+                                       FontSize="16"
+                                       Grid.Column="0" 
+                                       Grid.Row="1" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+        <StackLayout
+            x:Name="aiLayout"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            BackgroundColor="Transparent"
+            Opacity="0.5"
+            VerticalOptions="Center"
+            HorizontalOptions="Center">
+            <ActivityIndicator Color="{StaticResource Primary}"
+                           HeightRequest="50" WidthRequest="50"
+                           x:Name="Waiting" IsRunning="True" />
+            <Label Text="Cargando..." HorizontalOptions="Center" />
+        </StackLayout>
+    </AbsoluteLayout>
+
+</ContentPage>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="VisitApp.Views.RegisterPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:VisitApp.Views"
+    Title="Registro Manual">
+    <AbsoluteLayout>
+        <VerticalStackLayout 
+            Spacing="25" 
+            Padding="30,0" 
+            VerticalOptions="Center"
+            AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+
+            <Image Source="header_ingreso.jpg" HeightRequest="64" WidthRequest="64" />
+
+            <Border 
+                Stroke="{StaticResource TextColor}"
+                StrokeShape="RoundRectangle 28,28,28,28"
+                StrokeThickness="3">
+                <StackLayout Orientation="Horizontal">
+                    <Frame ZIndex="1" HasShadow="True" BorderColor="Transparent" HeightRequest="56" WidthRequest="56" CornerRadius="28">
+                        <Image Source="card.png" HeightRequest="20" WidthRequest="20" />
+                    </Frame>
+                    <Frame 
+                        HeightRequest="56" 
+                        Margin="-40,0,0,0" 
+                        Padding="35,0,20,0" 
+                        HasShadow="False" 
+                        BorderColor="Transparent"
+                        HorizontalOptions="FillAndExpand" 
+                        CornerRadius="28">
+                        <StackLayout>
+                            <Entry x:Name="ID" Margin="5,0,0,0" Placeholder="ID o pasaporte" FontSize="18" />
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </Border>
+
+            <Button Margin="0,20,0,0"
+                x:Name="RegisterButton"
+                Clicked="RegisterButton_Clicked"
+                FontAttributes="Bold"
+                FontSize="16"
+                HeightRequest="45"
+                Text="Registrar" VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="FillAndExpand" />
+        </VerticalStackLayout>
+        <StackLayout
+            x:Name="aiLayout"
+            IsVisible="False"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            BackgroundColor="Transparent" 
+            Opacity="0.5"
+            VerticalOptions="Center"
+            HorizontalOptions="Center">
+            <ActivityIndicator Color="{StaticResource Primary}"
+                           HeightRequest="50" WidthRequest="50"
+                           x:Name="Waiting" IsRunning="False" />
+            <Label Text="Validando..." HorizontalOptions="Center" />
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

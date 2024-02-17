@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="VisitApp.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:VisitApp.Views"
+    Title="Autorización">
+    <AbsoluteLayout>
+        <VerticalStackLayout 
+            Spacing="25" 
+            Padding="30,0" 
+            VerticalOptions="Center"
+            AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+
+            <Image Source="login_logo.png" HeightRequest="75" WidthRequest="75" />
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="¡ Bienvenid@ !" FontSize="32" TextColor="{StaticResource TextColor}" HorizontalTextAlignment="Center" />
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                    <Label Text="Desytec" FontSize="28" TextColor="{StaticResource TextColor}" />
+                    <Label Text=" Visit Mobile" FontSize="28" TextColor="{StaticResource TextColor}" FontAttributes="Bold" />
+                </StackLayout>
+            </VerticalStackLayout>
+
+            <Border 
+                Stroke="{StaticResource TextColor}"
+                StrokeShape="RoundRectangle 28,28,28,28"
+                StrokeThickness="3">
+                <StackLayout Orientation="Horizontal">
+                    <Frame ZIndex="1" HasShadow="True" BorderColor="Transparent" HeightRequest="56" WidthRequest="56" CornerRadius="28">
+                        <Image Source="user.png" HeightRequest="20" WidthRequest="20" />
+                    </Frame>
+                    <Frame 
+                        HeightRequest="56" 
+                        Margin="-40,0,0,0" 
+                        Padding="35,0,20,0" 
+                        HasShadow="False" 
+                        BorderColor="Transparent"
+                        HorizontalOptions="FillAndExpand" 
+                        CornerRadius="28">
+                        <StackLayout>
+                            <Entry x:Name="Username" Margin="5,0,0,0" Placeholder="Nombre de usuario" FontSize="18" Keyboard="Email" />
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </Border>
+
+            <Border 
+                Stroke="{StaticResource TextColor}"
+                StrokeShape="RoundRectangle 28,28,28,28"
+                StrokeThickness="3">
+                <StackLayout Orientation="Horizontal">
+                    <Frame ZIndex="1" HasShadow="True" BorderColor="Transparent" HeightRequest="56" WidthRequest="56" CornerRadius="28">
+                        <Image Source="lock.png" HeightRequest="20" WidthRequest="20" />
+                    </Frame>
+                    <Frame 
+                        HeightRequest="56" 
+                        Margin="-40,0,0,0" 
+                        Padding="35,0,20,0" 
+                        HasShadow="False" 
+                        BorderColor="Transparent"
+                        HorizontalOptions="FillAndExpand" 
+                        CornerRadius="28">
+                        <StackLayout>
+                            <Entry x:Name="Password" Margin="5,0,0,0" Placeholder="Contraseña" IsPassword="True" FontSize="18" />
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </Border>
+
+            <Button Margin="0,20,0,0"
+                    x:Name="LoginButton"
+                    Clicked="LoginButton_Clicked"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    HeightRequest="45"
+                    Text="Ingresar"
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="FillAndExpand" />
+        </VerticalStackLayout>
+        <StackLayout
+            x:Name="aiLayout"
+            IsVisible="False"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            BackgroundColor="Transparent"
+            Opacity="0.5"
+            VerticalOptions="Center"
+            HorizontalOptions="Center">
+            <ActivityIndicator Color="{StaticResource Primary}"
+                               HeightRequest="50" WidthRequest="50"
+                               x:Name="Waiting" IsRunning="False" />
+            <Label Text="Cargando..." HorizontalOptions="Center" />
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

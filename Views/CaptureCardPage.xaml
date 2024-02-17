@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="VisitApp.Views.CaptureCardPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:VisitApp.ViewModels"
+    xmlns:local="clr-namespace:VisitApp.Views"
+    x:DataType="vm:CaptureCardViewModel"
+    xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+    Title="Escanear ID">
+    <StackLayout Orientation="Vertical">
+        <cv:CameraView 
+            x:Name="cameraView" 
+            VerticalOptions="StartAndExpand"
+            HorizontalOptions="FillAndExpand" />
+        <StackLayout 
+            x:Name="ManualButton"
+            Orientation="Horizontal"
+            BackgroundColor="White"
+            HorizontalOptions="FillAndExpand"
+            IsVisible="{Binding IsManualButtonVisible}" >
+            <StackLayout 
+                Orientation="Horizontal" 
+                HorizontalOptions="CenterAndExpand">
+                <Image 
+                    Source="registro_manual.png" 
+                    HeightRequest="32"
+                    WidthRequest="32" 
+                    BackgroundColor="White" 
+                    HorizontalOptions="Center" />
+                <Button 
+                    Margin="0,0,0,0"
+                    Clicked="ManualButton_Clicked"
+                    BackgroundColor="White"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource TextColor}"
+                    BorderWidth="0"
+                    CornerRadius="0"
+                    FontSize="20"
+                    HeightRequest="60"
+                    Text="REGISTRO MANUAL" VerticalOptions="End" 
+                    HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+        </StackLayout>
+        <StackLayout 
+            x:Name="AllowedMessage"
+            Orientation="Horizontal"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="End"
+            IsVisible="{Binding IsAllowedMessageVisible}">
+            <StackLayout
+                Orientation="Horizontal"
+                HorizontalOptions="CenterAndExpand">
+                <Image 
+                    Source="acceso_concedido.png" 
+                    HeightRequest="32" 
+                    WidthRequest="32"
+                    Margin="0,0,10,0"/>
+                <Label Margin="0,0,0,0"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource SuccessColor}"
+                       FontSize="16"
+                       HeightRequest="60"
+                       VerticalTextAlignment="Center"
+                       Text="ACCESO CONCEDIDO" />
+            </StackLayout>
+        </StackLayout>
+        <StackLayout 
+            x:Name="DeniedMessage"
+            Orientation="Horizontal"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="End"
+            IsVisible="{Binding IsDeniedMessageVisible}">
+            <StackLayout
+                Orientation="Horizontal"
+                HorizontalOptions="CenterAndExpand">
+                <Image 
+                        Source="acceso_denegado.png" 
+                        HeightRequest="32" 
+                        WidthRequest="32"
+                        Margin="0,0,10,0"/>
+                <Label 
+                    Margin="0,0,0,0"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource ErrorColor}"
+                    FontSize="16"
+                    HeightRequest="60"
+                    VerticalTextAlignment="Center"
+                    Text="ACCESO DENEGADO" />
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

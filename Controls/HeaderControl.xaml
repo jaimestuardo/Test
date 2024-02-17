@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="VisitApp.Controls.HeaderControl">
+    <Grid BackgroundColor="#0e8ebc"
+                  RowDefinitions="Auto, *, *"
+                  Padding="10"
+                  HeightRequest="150">
+        <toolkit:AvatarView x:Name="UserAvatar"
+                                    Grid.Row="0"
+                                    ImageSource="Images/profile.svg"
+                                    HeightRequest="80"
+                                    WidthRequest="80"
+                                    CornerRadius="70"
+                                    Opacity="0.6"
+                                    BorderWidth="0"
+                                    BorderColor="SaddleBrown" />
+        <Label x:Name="LblFullName"
+                       Grid.Row="1"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       TextTransform="Uppercase"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center" />
+        <Label x:Name="LblEmail"
+                       Grid.Row="2"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center" />
+    </Grid>
+</StackLayout>
