@@ -1,0 +1,12 @@
+﻿global using CommunityToolkit.Mvvm.ComponentModel;
+global using CommunityToolkit.Mvvm.Input;
+global using System.Collections.ObjectModel;
+global using System.ComponentModel;
+global using System.Diagnostics;
+global using System.Globalization;
+global using System.Text.Json;
+global using System.Threading.Tasks;
+global using VisitApp.Models;
+global using VisitApp.Services;
+global using VisitApp.ViewModels;
+global using VisitApp.Views;
