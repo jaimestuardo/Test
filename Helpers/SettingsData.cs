@@ -1,4 +1,4 @@
-﻿namespace VisitApp.Helpers
+﻿namespace DVisit.Helpers
 {
     public class SettingsData
     {

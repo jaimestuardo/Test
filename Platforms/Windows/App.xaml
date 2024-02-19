@@ -1,8 +1,8 @@
 ﻿<maui:MauiWinUIApplication
-    x:Class="VisitApp.WinUI.App"
+    x:Class="DVisit.WinUI.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:maui="using:Microsoft.Maui"
-    xmlns:local="using:VisitApp.WinUI">
+    xmlns:local="using:DVisit.WinUI">
 
 </maui:MauiWinUIApplication>

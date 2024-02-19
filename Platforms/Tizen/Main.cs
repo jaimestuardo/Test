@@ -2,7 +2,7 @@ using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 using System;
 
-namespace VisitApp
+namespace DVisit
 {
     internal class Program : MauiApplication
     {

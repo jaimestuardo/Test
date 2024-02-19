@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace VisitApp
+namespace DVisit
 {
     [Application]
     public class MainApplication : MauiApplication

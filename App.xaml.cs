@@ -1,11 +1,9 @@
-﻿using VisitApp.Helpers;
-
-namespace VisitApp
+﻿namespace DVisit
 {
     public partial class App : Application
     {
-        public static string UserEmail { get; set; }
-        public static string UserFullName { get; set; }
+        public static string? UserEmail { get; set; }
+        public static string? UserFullName { get; set; }
 
         public App()
         {
@@ -26,7 +24,7 @@ namespace VisitApp
             UserEmail = UserFullName = string.Empty;
         }
 
-        private static async Task<bool> IsAuthenticated()
+        public static async Task<bool> IsAuthenticated()
         {
             return await Helpers.LoginData.IsAuthenticated();
         }

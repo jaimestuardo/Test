@@ -1,4 +1,4 @@
-﻿namespace VisitApp.Models;
+﻿namespace DVisit.Models;
 
 public class VisitorItem
 {

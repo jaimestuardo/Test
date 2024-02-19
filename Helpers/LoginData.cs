@@ -1,4 +1,4 @@
-﻿namespace VisitApp.Helpers
+﻿namespace DVisit.Helpers
 {
     public class LoginData
     {
@@ -16,25 +16,25 @@
             return 0;
         }
 
-        public static async Task<string> GetLogin()
+        public static async Task<string ?> GetLogin()
         {
             var login = await SecureStorage.GetAsync("userLogin");
             return login;
         }
 
-        public static async Task<string> GetFirstName()
+        public static async Task<string?> GetFirstName()
         {
             var firstName = await SecureStorage.GetAsync("firstName");
             return firstName;
         }
 
-        public static async Task<string> GetFullName()
+        public static async Task<string?> GetFullName()
         {
             var login = await SecureStorage.GetAsync("userFullname");
             return login;
         }
 
-        public static async Task<string> GetEmail()
+        public static async Task<string?> GetEmail()
         {
             var email = await SecureStorage.GetAsync("email");
             return email;
@@ -43,7 +43,7 @@
         public static async Task<string> GetAvatar()
         {
             var avatar = await SecureStorage.GetAsync("avatar");
-            return avatar;
+            return avatar ?? string.Empty;
         }
 
         public static void Clear()

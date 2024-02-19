@@ -1,6 +1,6 @@
-﻿using VisitApp.Helpers;
+﻿using DVisit.Helpers;
 
-namespace VisitApp.Views
+namespace DVisit.Views
 {
     public partial class LoadingPage : ContentPage
     {
@@ -9,39 +9,51 @@ namespace VisitApp.Views
             InitializeComponent();
         }
 
-        /*
-        protected override async void OnNavigatedTo(NavigatedToEventArgs args)
+        protected override void OnNavigatedTo(NavigatedToEventArgs args)
         {
             base.OnNavigatedTo(args);
 
-            var server = await Helpers.SettingsData.GetZkServerAddress();
-            if (server == string.Empty)
-                await Shell.Current.GoToAsync($"///{nameof(LoginPage)}");
-            else
-            {
             //Helpers.LoginData.Clear();
             //Preferences.Default.Set("enrolled", false);
-            if (await IsAuthenticated())
+            MainThread.BeginInvokeOnMainThread(async () =>
             {
-                await HeaderUtil.AddUserInfoAsync();
-                await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
-            }
-            else
-            {
-                await Shell.Current.GoToAsync($"/{nameof(LoginPage)}");
-            }
-            //}
-        }
-        */
+                //Helpers.LoginData.Clear();
+                //Preferences.Default.Set("enrolled", false);
+                if (await App.IsAuthenticated())
+                {
+                    await HeaderUtil.AddUserInfoAsync();
+                    await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
+                }
+                else
+                {
+                    await Shell.Current.GoToAsync($"///{nameof(LoginPage)}");
+                }
 
-        private static async Task<bool> IsAuthenticated()
-        {
-            return await Helpers.LoginData.IsAuthenticated();
+                /*
+                var server = await Helpers.SettingsData.GetZkServerAddress();
+                if (server == string.Empty)
+                    await Shell.Current.GoToAsync($"///{nameof(LoginPage)}");
+                else
+                {
+                    //Helpers.LoginData.Clear();
+                    //Preferences.Default.Set("enrolled", false);
+                    if (await App.IsAuthenticated())
+                    {
+                        await HeaderUtil.AddUserInfoAsync();
+                        await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
+                    }
+                    else
+                    {
+                        await Shell.Current.GoToAsync($"///{nameof(LoginPage)}");
+                    }
+                }
+                */
+            });
         }
 
         protected override bool OnBackButtonPressed()
         {
-            Application.Current.Quit();
+            Application.Current?.Quit();
             return true;
         }
     }

@@ -1,9 +1,9 @@
-﻿namespace VisitApp.ViewModels
+﻿namespace DVisit.ViewModels
 {
     public partial class ShellViewModel : BaseViewModel, INotifyPropertyChanged
     {
-        private string _userEmail;
-        public string UserEmail
+        private string? _userEmail;
+        public string? UserEmail
         {
             get { return _userEmail; }
             set
@@ -16,8 +16,8 @@
             }
         }
 
-        private string _userFullname;
-        public string UserFullname
+        private string? _userFullname;
+        public string? UserFullname
         {
             get { return _userFullname; }
             set
@@ -32,8 +32,8 @@
 
         private async Task GetUserInformation()
         {
-            UserEmail = await VisitApp.Helpers.LoginData.GetEmail();
-            UserFullname = await VisitApp.Helpers.LoginData.GetFullName();
+            UserEmail = await DVisit.Helpers.LoginData.GetEmail();
+            UserFullname = await DVisit.Helpers.LoginData.GetFullName();
         }
 
         public async Task LoadData()

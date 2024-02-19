@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:VisitApp.ViewModels"
-             xmlns:model="clr-namespace:VisitApp.Models"
-             x:Class="VisitApp.Views.MainPage"
+             xmlns:vm="clr-namespace:DVisit.ViewModels"
+             xmlns:model="clr-namespace:DVisit.Models"
+             x:Class="DVisit.Views.MainPage"
              x:DataType="vm:MainViewModel"
              Title="Últimas Visitas">
 

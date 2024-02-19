@@ -1,10 +1,10 @@
-﻿namespace VisitApp.ViewModels
+﻿namespace DVisit.ViewModels
 {
     [QueryProperty(nameof(Visitor), "Visitor")]
     public partial class CaptureCardViewModel : BaseViewModel
     {
         readonly VisitorDataService dataService;
-        readonly IDispatcherTimer timer;
+        readonly IDispatcherTimer? timer;
 
         [ObservableProperty]
         private bool isManualButtonVisible = true;
@@ -16,18 +16,21 @@
         private bool isDeniedMessageVisible;
 
         [ObservableProperty]
-        private VisitorItem visitor;
+        private VisitorItem? visitor;
 
         public CaptureCardViewModel(VisitorDataService service)
         {
             dataService = service;
 
-            timer = Application.Current.Dispatcher.CreateTimer();
-            timer.Interval = TimeSpan.FromSeconds(6);
-            timer.Tick += Timer_Tick;
+            if (Application.Current != null)
+            {
+                timer = Application.Current.Dispatcher.CreateTimer();
+                timer.Interval = TimeSpan.FromSeconds(6);
+                timer.Tick += Timer_Tick;
+            }
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object? sender, EventArgs e)
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
@@ -45,11 +48,13 @@
                 IsAllowedMessageVisible = Visitor != null && Visitor.valid;
                 IsDeniedMessageVisible = Visitor != null && !Visitor.valid;
 
-                if (IsAllowedMessageVisible)
-                    await dataService.AllowAccessByCard(Visitor.documentNumber);
-
                 if (Visitor != null)
-                    timer.Start();
+                {
+                    if (IsAllowedMessageVisible)
+                        await dataService.AllowAccessByCard(Visitor.documentNumber);
+
+                    timer?.Start();
+                }
             }
             else
                 base.OnPropertyChanged(e);

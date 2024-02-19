@@ -1,4 +1,4 @@
-﻿namespace VisitApp.Views
+﻿namespace DVisit.Views
 {
     public partial class CaptureCardPage : ContentPage
     {
@@ -30,7 +30,7 @@
             await Shell.Current.GoToAsync($"/{nameof(RegisterPage)}");
         }
 
-        private void CameraView_CamerasLoaded(object sender, EventArgs e)
+        private void CameraView_CamerasLoaded(object? sender, EventArgs e)
         {
             if (cameraView.NumCamerasDetected > 0)
             {

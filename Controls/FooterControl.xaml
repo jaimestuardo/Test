@@ -4,7 +4,7 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:info="clr-namespace:Microsoft.Maui.ApplicationModel;assembly=Microsoft.Maui.Essentials"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
-             x:Class="VisitApp.Controls.FooterControl">
+             x:Class="DVisit.Controls.FooterControl">
     <Label Text="Desytec SpA"
                        TextColor="#0e8ebc"
                        FontAttributes="Bold"

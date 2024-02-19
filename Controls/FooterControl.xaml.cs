@@ -1,4 +1,4 @@
-﻿namespace VisitApp.Controls
+﻿namespace DVisit.Controls
 {
     public partial class FooterControl : StackLayout
     {

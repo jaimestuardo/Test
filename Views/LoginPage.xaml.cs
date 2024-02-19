@@ -1,4 +1,4 @@
-﻿namespace VisitApp.Views
+﻿namespace DVisit.Views
 {
     public partial class LoginPage : ContentPage
     {
@@ -14,14 +14,14 @@
             Loaded += MainPage_Loaded;
         }
 
-        private void MainPage_Loaded(object sender, EventArgs e)
+        private void MainPage_Loaded(object? sender, EventArgs e)
         {
             Username.Focus();
         }
 
         protected override bool OnBackButtonPressed()
         {
-            Application.Current.Quit();
+            Application.Current?.Quit();
             return true;
         }
 
@@ -60,8 +60,8 @@
             {
                 await Helpers.LoginData.Set(
                     true,
-                    result.id,
-                    result.firstName,
+                    result.id ?? string.Empty,
+                    result.firstName ?? string.Empty,
                     result.lastName ?? string.Empty,
                     result.email ?? string.Empty
                 );

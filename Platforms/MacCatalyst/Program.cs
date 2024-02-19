@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace VisitApp
+namespace DVisit
 {
     public class Program
     {

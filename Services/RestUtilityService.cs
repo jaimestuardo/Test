@@ -1,22 +1,22 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Net.Http.Json;
 using System.Text;
-using VisitApp.Helpers;
+using DVisit.Helpers;
 
-namespace VisitApp.Services
+namespace DVisit.Services
 {
     public class RestUtilityService
     {
-        public event EventHandler<ThreadExceptionEventArgs> Exception;
+        public event EventHandler<ThreadExceptionEventArgs>? Exception;
         private void OnException(Exception ex)
         {
             Exception?.Invoke(this, new ThreadExceptionEventArgs(ex));
         }
 
-        readonly Settings settings;
+        readonly Settings? settings;
         readonly HttpClient client;
         readonly JsonSerializerOptions serializerOptions;
-        static string baseUrl;
+        static string? baseUrl;
 
         public RestUtilityService(IConfiguration config)
         {
@@ -32,7 +32,7 @@ namespace VisitApp.Services
                 WriteIndented = true
             };
             settings = config.GetRequiredSection("Settings").Get<Settings>();
-            baseUrl = settings.Api != null && settings.Api.BaseUrl != null ? (DeviceInfo.Platform == DevicePlatform.Android ? settings.Api.BaseUrl.Android : settings.Api.BaseUrl.Ios) : string.Empty;
+            baseUrl = settings?.Api != null && settings.Api.BaseUrl != null ? (DeviceInfo.Platform == DevicePlatform.Android ? settings.Api.BaseUrl.Android : settings.Api.BaseUrl.Ios) : string.Empty;
             if (string.IsNullOrEmpty(baseUrl))
                 baseUrl = SettingsData.GetZkServerAddress().Result;
         }
@@ -45,8 +45,8 @@ namespace VisitApp.Services
                 if (client.DefaultRequestHeaders.Contains("Authorization"))
                     client.DefaultRequestHeaders.Remove("Authorization");
 
-                string usuario = settings.Api.User;
-                string clave = settings.Api.Password;
+                string usuario = settings?.Api?.User ?? string.Empty;
+                string clave = settings?.Api?.Password ?? string.Empty;
                 HttpResponseMessage response = await client.PostAsJsonAsync(uri, new
                 {
                     usuario,
@@ -55,7 +55,7 @@ namespace VisitApp.Services
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    return JsonSerializer.Deserialize<string>(content, serializerOptions);
+                    return JsonSerializer.Deserialize<string>(content, serializerOptions) ?? string.Empty;
                 }
 
                 throw (new Exception($"La respuesta del servidor fue: {response.ReasonPhrase}"));
@@ -68,7 +68,7 @@ namespace VisitApp.Services
             return string.Empty;
         }
 
-        public async Task<T> GetDataAsync<T>(string endPoint)
+        public async Task<T ?> GetDataAsync<T>(string endPoint)
         {
             string token = await GetBearerToken();
             if (string.IsNullOrEmpty(token))
@@ -83,15 +83,15 @@ namespace VisitApp.Services
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    ApiResult<T> result = JsonSerializer.Deserialize<ApiResult<T>>(content, serializerOptions);
+                    ApiResult<T>? result = JsonSerializer.Deserialize<ApiResult<T>>(content, serializerOptions) ?? throw new Exception("No se pudo obtener la respuesta del servidor.");
                     if (!result.success)
-                        throw new Exception(result.errorList == null || !result.errorList.Any() ? result.detail : result.errorList.First());
+                        throw new Exception(result.errorList == null || result.errorList.Length == 0 ? result.detail : result.errorList.First());
 
-                    return (T)result.data;
+                    return (T?)result.data;
                 }
 
                 var contenido = (await response.Content.ReadAsStringAsync()).ToObject<ErrorItem>();
-                throw new Exception($"La respuesta del servidor fue: {(contenido == null || contenido.errors == null || !contenido.errors.Any() ? response.ReasonPhrase : contenido.errors.First().Value.First())}");
+                throw new Exception($"La respuesta del servidor fue: {(contenido == null || contenido.errors == null || contenido.errors.Count == 0 ? response.ReasonPhrase : contenido.errors.First().Value.First())}");
             }
             catch (Exception ex)
             {
@@ -101,7 +101,7 @@ namespace VisitApp.Services
             return default;
         }
 
-        public async Task<T> PostDataAsync<T>(string endPoint, object parameters)
+        public async Task<T ?> PostDataAsync<T>(string endPoint, object parameters)
         {
             string token = await GetBearerToken();
             if (string.IsNullOrEmpty(token))
@@ -119,24 +119,15 @@ namespace VisitApp.Services
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    ApiResult<object> result = JsonSerializer.Deserialize<ApiResult<object>>(content, serializerOptions);
-
-                    /*
-                    if (result == null) // Viene un error JSON
-                    {
-                        var status = JsonSerializer.Deserialize<ApiStatusItem>(content, serializerOptions);
-                        result = new ApiResult<string> { message = status.detail };
-                    }
-                    */
-
+                    ApiResult<object>? result = JsonSerializer.Deserialize<ApiResult<object>>(content, serializerOptions) ?? throw new Exception("No se pudo obtener la respuesta del servidor.");
                     if (!result.success)
-                        throw new Exception(result.errorList == null || !result.errorList.Any() ? result.detail : result.errorList.First());
+                        throw new Exception(result.errorList == null || result.errorList.Length == 0 ? result.detail : result.errorList.First());
 
                     return typeof(T) == typeof(bool) ? (T)Convert.ChangeType(result.success, typeof(T)) : result.data.ToObject<T>();
                 }
 
                 var contenido = (await response.Content.ReadAsStringAsync()).ToObject<ErrorItem>();
-                throw new Exception($"La respuesta del servidor fue: {(contenido == null || contenido.errors == null || !contenido.errors.Any() ? response.ReasonPhrase : contenido.errors.First().Value.First())}");
+                throw new Exception($"La respuesta del servidor fue: {(contenido == null || contenido.errors == null || contenido.errors.Count == 0 ? response.ReasonPhrase : contenido.errors.First().Value.First())}");
             }
             catch (Exception ex)
             {

@@ -1,6 +1,6 @@
-﻿using VisitApp.Controls;
+﻿using DVisit.Controls;
 
-namespace VisitApp.Helpers
+namespace DVisit.Helpers
 {
     public class HeaderUtil
     {

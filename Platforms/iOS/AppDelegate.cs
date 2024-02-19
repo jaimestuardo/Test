@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace VisitApp
+namespace DVisit
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

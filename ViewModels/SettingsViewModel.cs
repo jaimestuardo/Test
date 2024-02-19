@@ -1,6 +1,6 @@
-﻿using VisitApp.Helpers;
+﻿using DVisit.Helpers;
 
-namespace VisitApp.ViewModels
+namespace DVisit.ViewModels
 {
     public partial class SettingsViewModel : BaseViewModel
     {

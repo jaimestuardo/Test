@@ -1,12 +1,11 @@
-﻿using Camera.MAUI;
-using CommunityToolkit.Maui;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using UraniumUI;
+using Camera.MAUI;
+using CommunityToolkit.Maui;
 
-namespace VisitApp
+namespace DVisit
 {
     public static partial class MauiProgram
     {
@@ -15,19 +14,20 @@ namespace VisitApp
             var builder = MauiApp.CreateBuilder();
 
             var a = Assembly.GetExecutingAssembly();
-            using var stream = a.GetManifestResourceStream("VisitApp.appsettings.json");
+            using var stream = a.GetManifestResourceStream("DVisit.appsettings.json");
 
-            var config = new ConfigurationBuilder()
-                        .AddJsonStream(stream)
-                        .Build();
-            builder.Configuration.AddConfiguration(config);
+            if (stream != null)
+            {
+                var config = new ConfigurationBuilder()
+                            .AddJsonStream(stream)
+                            .Build();
+                builder.Configuration.AddConfiguration(config);
+            }
 
             builder
                 .UseMauiApp<App>()
                 .UseMauiCameraView()
                 .UseMauiCommunityToolkit()
-                .UseUraniumUI()
-                .UseUraniumUIMaterial()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("FontAwesome6FreeBrands.otf", "FontAwesomeBrands");
@@ -39,7 +39,7 @@ namespace VisitApp
                 });
 
 #if DEBUG
-            builder.Logging.AddDebug();
+    		builder.Logging.AddDebug();
 #endif
 
             builder.Services
@@ -51,7 +51,8 @@ namespace VisitApp
                 .AddTransient<VisitorDataService>()
                 .AddTransient(factory =>
                 {
-                    var rest = new RestUtilityService(factory.GetService<IConfiguration>());
+                    var config = factory.GetService<IConfiguration>() ?? throw new Exception("No se pudo cargar la configuración de la aplicación.");
+                    var rest = new RestUtilityService(config);
                     rest.Exception += Api_Exception;
                     return rest;
                 })
@@ -66,12 +67,13 @@ namespace VisitApp
             return builder.Build();
         }
 
-        static async private void Api_Exception(object sender, ThreadExceptionEventArgs e)
+        static async private void Api_Exception(object? sender, ThreadExceptionEventArgs e)
         {
             string message = e.Exception.Message;
             Regex regex = ExtractTitle();
             var match = regex.Match(message);
-            await Application.Current.MainPage.DisplayAlert(match.Success ? match.Value : "Error", match.Success ? message.Replace("[" + match.Value + "]", string.Empty).Trim() : message, "Aceptar");
+            if (match != null && Application.Current != null && Application.Current.MainPage != null)
+                await Application.Current.MainPage.DisplayAlert(match.Success ? match.Value : "Error", match.Success ? message.Replace("[" + match.Value + "]", string.Empty).Trim() : message, "Aceptar");
         }
 
         [GeneratedRegex("(?<=^\\[).+?(?=\\])")]

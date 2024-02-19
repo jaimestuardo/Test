@@ -1,4 +1,4 @@
-﻿namespace VisitApp.Services
+﻿namespace DVisit.Services
 {
     public class HttpsClientHandlerService
     {

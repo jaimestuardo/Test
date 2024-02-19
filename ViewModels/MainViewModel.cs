@@ -1,19 +1,14 @@
-﻿namespace VisitApp.ViewModels;
+﻿namespace DVisit.ViewModels;
 
-public partial class MainViewModel : BaseViewModel
+public partial class MainViewModel(VisitorDataService service) : BaseViewModel
 {
-    readonly VisitorDataService dataService;
+    readonly VisitorDataService dataService = service;
 
     [ObservableProperty]
     bool isRefreshing;
 
     [ObservableProperty]
-    ObservableCollection<TransactionItem> visitors;
-
-    public MainViewModel(VisitorDataService service)
-    {
-        dataService = service;
-    }
+    ObservableCollection<TransactionItem>? visitors;
 
     [RelayCommand]
     private async Task OnRefreshing()

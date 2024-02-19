@@ -1,4 +1,4 @@
-﻿namespace VisitApp.Views
+﻿namespace DVisit.Views
 {
     public partial class RegisterPage : ContentPage
     {
@@ -36,7 +36,7 @@
                 {
                     Waiting.IsRunning = aiLayout.IsVisible = true;
                     var visitor = await dataService.GetByCard(card);
-                    await Shell.Current.GoToAsync("..", new Dictionary<string, object> { { "Visitor", visitor } });
+                    await Shell.Current.GoToAsync("..", new Dictionary<string, object ?> { { "Visitor", visitor } });
                     isProcessing = false;
                     Waiting.IsRunning = aiLayout.IsVisible = false;
                 }

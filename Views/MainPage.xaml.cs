@@ -1,4 +1,4 @@
-﻿namespace VisitApp.Views
+﻿namespace DVisit.Views
 {
     public partial class MainPage : ContentPage
     {

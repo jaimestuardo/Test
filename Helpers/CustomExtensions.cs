@@ -1,4 +1,4 @@
-﻿namespace VisitApp.Helpers
+﻿namespace DVisit.Helpers
 {
     public static class CustomExtensions
     {
@@ -17,7 +17,7 @@
             return fecha.Date.AddDays(1).AddSeconds(-1);
         }
 
-        public static T ToObject<T>(this object o)
+        public static T ? ToObject<T>(this object? o)
         {
             if (o is null || o is not JsonElement && o is not string)
                 return default;

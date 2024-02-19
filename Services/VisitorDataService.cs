@@ -1,22 +1,17 @@
-﻿namespace VisitApp.Services;
+﻿namespace DVisit.Services;
 
-public class VisitorDataService
+public class VisitorDataService(RestUtilityService api)
 {
-    readonly RestUtilityService _api;
-
-    public VisitorDataService(RestUtilityService api)
-    {
-        _api = api;
-    }
+    readonly RestUtilityService _api = api;
 
     public async Task<IEnumerable<TransactionItem>> GetLastItems()
     {
-        var result = (await _api.GetDataAsync<List<TransactionItem>>("/api/Visitor/GetLastVisitors")).OrderByDescending(c => c.DateAndTime);
+        var result = (await _api.GetDataAsync<List<TransactionItem>>("/api/Visitor/GetLastVisitors"))?.OrderByDescending(c => c.DateAndTime);
 
-        return result;
+        return result?.ToList() ?? [];
     }
 
-    public async Task<VisitorItem> GetByCard(string card)
+    public async Task<VisitorItem ?> GetByCard(string card)
     {
         var result = await _api.GetDataAsync<VisitorItem>($"/api/Visitor/GetByCard/{card}");
         return result;
